@@ -1,6 +1,8 @@
-import asyncio
-from aiocoap import Context, Message, GET, PUT
 from aiocoap.transports.tinydtls import DTLSClientConnection
+from aiocoap import Context, Message, GET, PUT
+import asyncio
+import Utils
+
 
 # DTLS Configuration
 dtls_params = {"psk": b"psk_identity", "pskId": b"psk_key"}
@@ -51,4 +53,8 @@ async def main():
 
 
 if __name__ == "__main__":
+    Utils.setup_logging()
+
     asyncio.run(main())
+
+    Utils.end_logging()
