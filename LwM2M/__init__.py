@@ -1,6 +1,7 @@
 from aiocoap.transports.tinydtls import DTLSClientConnection
 from aiocoap import Context, Message, GET, PUT
 import asyncio
+import logging
 import Utils
 
 
@@ -44,16 +45,16 @@ class LwM2MClient:
         print("Write response: %s\n%r" % (response.code, response.payload))
 
 
-# Main function to run the client
 async def main():
     client = LwM2MClient("coaps://leshan.eclipseprojects.io:5684")
     await client.bootstrap()
-    await client.read_resource("3/0/0")  # Example path for Device object
+    await client.read_resource("3/0/0")
     await client.write_resource("3/0/0", b"new_value")
 
 
 if __name__ == "__main__":
-    Utils.setup_logging()
+    endpoint, server, port, debug_mode = Utils.parse_args()
+    Utils.setup_logging(level=logging.DEBUG if debug_mode else logging.INFO)
 
     asyncio.run(main())
 

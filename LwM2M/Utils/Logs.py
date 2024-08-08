@@ -48,8 +48,6 @@ class _ColourFormatter(logging.Formatter):
         datefmt: str = "%Y-%m-%d %H:%M:%S",
         style: Literal["%"] | Literal["{"] | Literal["$"] = "%",
         validate: bool = True,
-        *,
-        defaults: logging.Mapping[str, logging.Any] | None = None,
     ) -> None:
         """
         Initialize the Logs object.
@@ -62,11 +60,9 @@ class _ColourFormatter(logging.Formatter):
         :type style: Literal["%"] | Literal["{"] | Literal["$"]
         :param validate: Whether to validate the format string.
         :type validate: bool
-        :param defaults: The default values for the format string.
-        :type defaults: logging.Mapping[str, logging.Any] | None
         """
 
-        super().__init__(fmt, datefmt, style, validate, defaults=defaults)
+        super().__init__(fmt, datefmt, style, validate)
 
         self._formats = {
             level: logging.Formatter(
